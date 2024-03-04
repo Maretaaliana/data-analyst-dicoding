@@ -1,5 +1,7 @@
 # E-Commerce Public Data Analysis with Python - Dicoding
 
+## [Click for see the app](https://data-analyst-dicoding-dxqpxac5bhzv2kdv43hhhk.streamlit.app/) 
+
 ## Table of Contents
 - [Overview](#overview)
 - [Project Structure](#project-structure)
