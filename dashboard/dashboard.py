@@ -181,7 +181,7 @@ st.pyplot(fig)
 
 # Customer Demographic
 st.subheader("Customer Demographic")
-tab1, tab2 = st.tabs(["State", "Geolocation"])
+tab1 = st.tabs(["State"])
 
 with tab1:
     most_common_state = state.customer_state.value_counts().index[0]
@@ -199,11 +199,5 @@ with tab1:
     plt.ylabel("Number of Customers")
     plt.xticks(fontsize=12)
     st.pyplot(fig)
-
-with tab2:
-    map_plot.plot()
-
-    with st.expander("See Explanation"):
-        st.write('According to the graph that has been created, there are more customers in the southeast and south. Other information, there are more customers in cities that are capitals (São Paulo, Rio de Janeiro, Porto Alegre, and others).')
-
+    
 st.caption('Mareta Aliana')
