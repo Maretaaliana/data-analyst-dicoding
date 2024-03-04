@@ -6,16 +6,14 @@ import streamlit as st
 import urllib
 from function import DataAnalyzer, BrazilMapPlotter
 
-sns.set(style='whitegrid')  # Ganti gaya grafik menjadi whitegrid
+sns.set(style='whitegrid')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-# Dataset
 date_cols = ["order_approved_at", "order_delivered_carrier_date", "order_delivered_customer_date", "order_estimated_delivery_date", "order_purchase_timestamp", "shipping_limit_date"]
 ecommerce_data = pd.read_csv("https://raw.githubusercontent.com/Maretaaliana/data-analyst-dicoding/main/dashboard/df.csv")
 ecommerce_data.sort_values(by="order_approved_at", inplace=True)
 ecommerce_data.reset_index(drop=True, inplace=True)
 
-# Geolocation Dataset
 geo_data = pd.read_csv('https://raw.githubusercontent.com/Maretaaliana/data-analyst-dicoding/main/dashboard/geolocation.csv')
 unique_customers_data = geo_data.drop_duplicates(subset='customer_unique_id')
 
@@ -25,7 +23,6 @@ for col in date_cols:
 min_date_val = ecommerce_data["order_approved_at"].min()
 max_date_val = ecommerce_data["order_approved_at"].max()
 
-# Sidebar
 with st.sidebar:
     col_left, col_center, col_right = st.columns(3)
     with col_left:
@@ -35,7 +32,6 @@ with st.sidebar:
     with col_right:
         st.write(' ')
 
-    # Rentang Tanggal
     start_date_val, end_date_val = st.date_input(
         label="Pilih Rentang Tanggal",
         value=[min_date_val, max_date_val],
@@ -43,7 +39,6 @@ with st.sidebar:
         max_value=max_date_val
     )
 
-# Main
 main_data = ecommerce_data[(ecommerce_data["order_approved_at"] >= str(start_date_val)) & 
                            (ecommerce_data["order_approved_at"] <= str(end_date_val))]
 
@@ -57,13 +52,10 @@ review_scores, common_score = data_analyzer.review_score_df()
 customer_state, most_common_state = data_analyzer.create_bystate_df()
 order_statuses, common_status = data_analyzer.create_order_status()
 
-# Tentukan aplikasi Streamlit Anda
 st.title("Analisis Data Publik E-Commerce")
 
-# Tambahkan teks atau deskripsi
 st.write("**Ini adalah dasbor untuk menganalisis data publik E-Commerce.**")
 
-# Pesanan Harian yang Dikirim
 st.subheader("Pesanan Harian yang Dikirim")
 col1, col2 = st.columns(2)
 
@@ -81,13 +73,12 @@ sns.lineplot(
     y=daily_orders_df["order_count"],
     marker="o",
     linewidth=2,
-    color="#FFA07A"  # Ganti warna garis
+    color="#FFA07A" 
 )
 ax_orders.tick_params(axis="x", rotation=45)
 ax_orders.tick_params(axis="y", labelsize=15)
 st.pyplot(fig_orders)
 
-# Pengeluaran Uang Pelanggan
 st.subheader("Pengeluaran Uang Pelanggan")
 col1, col2 = st.columns(2)
 
@@ -106,14 +97,13 @@ sns.lineplot(
     y="total_spend",
     marker="o",
     linewidth=2,
-    color="#FFA07A"  # Ganti warna garis
+    color="#FFA07A" 
 )
 
 ax_spend.tick_params(axis="x", rotation=45)
 ax_spend.tick_params(axis="y", labelsize=15)
 st.pyplot(fig_spend)
 
-# Barang Pesanan
 st.subheader("Barang Pesanan")
 col1, col2 = st.columns(2)
 
@@ -146,7 +136,6 @@ ax_items[1].tick_params(axis='x', labelsize=50)
 
 st.pyplot(fig_items)
 
-# Skor Ulasan
 st.subheader("Skor Ulasan")
 col1, col2 = st.columns(2)
 
@@ -177,7 +166,6 @@ for i, v in enumerate(review_scores.values):
 
 st.pyplot(fig_reviews)
 
-# Demografi Pelanggan
 st.subheader("Demografi Pelanggan")
 
 most_common_state_val = customer_state.customer_state.value_counts().index[0]
