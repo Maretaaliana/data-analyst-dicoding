@@ -28,7 +28,7 @@ with st.sidebar:
     with col_left:
         st.write(' ')
     with col_center:
-        st.image("https://raw.githubusercontent.com/Maretaaliana/data-analyst-dicoding/main/dashboard/logo2.png", width=100)  # Ganti logo
+        st.image("https://raw.githubusercontent.com/Maretaaliana/data-analyst-dicoding/main/dashboard/logo1.png", width=100)
     with col_right:
         st.write(' ')
 
